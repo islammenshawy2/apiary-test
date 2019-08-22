@@ -52,7 +52,7 @@ Polls is a simple API allowing consumers to view polls and vote in them.
             "Currency" : "usd"
         }
 
-## Statements [/statements/{?locationlt,locationlg,duration}]
+## Statements [/statements{?locationlt,locationlg,duration}]
 
 + Parameters
     + locationlt  - A query variable
@@ -63,7 +63,7 @@ Polls is a simple API allowing consumers to view polls and vote in them.
 
 + Response 200 (application/json)
 
-        [
+        {data :[
               {
               make: "08/01/2019", model: "Model 3", price: 35000
             }, 
@@ -100,4 +100,4 @@ Polls is a simple API allowing consumers to view polls and vote in them.
             {
               make: "08/01/2019", model: "Model Y", price: 72000
             }
-        ]
+        ]}
