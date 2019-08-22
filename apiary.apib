@@ -1,99 +1,103 @@
 FORMAT: 1A
 HOST: http://polls.apiblueprint.org/
 
-# Islam Mensh
+# Polls
 
 Polls is a simple API allowing consumers to view polls and vote in them.
 
-## Questions Collection [/questions]
+## Questions Collection [/search]
 
-### List All Questions [GET]
+
+## Search guides [/guide/{customerid}{?locationlt,locationlg,duration}]
+
++ Parameters
+    + customerid - A path variable that is required for a valid URL
+    + locationlt  - A query variable
+    + locationlg - Another query variable
+    + duration - Another query variable
+
+### Get Available Guides [GET]
 
 + Response 200 (application/json)
 
         [
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
+                "firstName": "Akram",
+                "Lastname": "Melice",
+                "rating": -5,
+                "profileimg":"https://hostedimage@noidea.com"
             },
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
+                "firstName": "Islam",
+                "Lastname": "Elmenshawy",
+                "rating": 100,
+                "profileimg":"https://hostedimage@noidea.com"
             }
         ]
+        
+## Trip Cost Estimator [/estimate{?locationlt,locationlg,duration}]
 
-### Create a New Question [POST]
++ Parameters
+    + customerid - A path variable that is required for a valid URL
+    + locationlt  - A query variable
+    + locationlg - Another query variable
+    + duration - Another query variable
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+### Get Trip Estimate [GET]
 
-+ Request (application/json)
++ Response 200 (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "CostAmount": 5.5,
+            "Currency" : "usd"
         }
 
-+ Response 201 (application/json)
+## Statements [/statements/{?locationlt,locationlg,duration}]
 
-    + Headers
++ Parameters
+    + locationlt  - A query variable
+    + locationlg - Another query variable
+    + duration - Another query variable
 
-            Location: /questions/2
+### Get Trip Estimate [GET]
 
-    + Body
++ Response 200 (application/json)
 
+        [
+              {
+              make: "08/01/2019", model: "Model 3", price: 35000
+            }, 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+              make: "08/01/2019", model: "Model x", price: 32000
+            }, 
+            {
+              make: "08/01/2019", model: "Model Y", price: 72000
+            }, 
+            {
+              make: "08/01/2019", model: "Model Y", price: 72000
+            }, 
+            {
+              make: "08/01/2019", model: "Model Y", price: 72000
+            }, 
+            {
+              make: "08/01/2019", model: "Model Y", price: 72000
+            }, 
+            {
+              make: "08/01/2019", model: "Model Y", price: 72000
+            }, 
+            {
+              make: "08/01/2019", model: "Model Y", price: 72000
+            }, 
+            {
+              make: "08/01/2019", model: "Model Y", price: 72000
+            }, 
+            {
+              make: "08/01/2019", model: "Model Y", price: 72000
+            }, 
+            {
+              make: "08/01/2019", model: "Model Y", price: 72000
+            }, 
+            {
+              make: "08/01/2019", model: "Model Y", price: 72000
             }
+        ]
