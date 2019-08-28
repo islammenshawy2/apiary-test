@@ -59,7 +59,40 @@ Polls is a simple API allowing consumers to view polls and vote in them.
     + locationlg - Another query variable
     + duration - Another query variable
 
-### Get Trip Estimate [GET]
+### Get Statements [GET]
+
++ Response 200 (application/json)
+
+       [
+            {
+              "id": 1,
+              "make": "08/01/2019",
+              "model": "Model 3",
+              "price": 35000,
+              "status": "processed"
+            },
+            {
+              "id": 2,
+              "make": "08/01/2019",
+              "model": "Model y",
+              "price": 32000,
+              "status": "partially processed"
+            },
+            {
+              "id": 3,
+              "make": "08/01/2019",
+              "model": "Model x",
+              "price": 32000,
+              "status": "Failed"
+            }
+         ]
+
+### Transactions [/transactions{?statementId}]
+
++ Parameters
+    + statementId  - A query variable for statement Id
+
+### Get Statement Transactions [GET]
 
 + Response 200 (application/json)
 
