@@ -65,25 +65,42 @@ Polls is a simple API allowing consumers to view polls and vote in them.
 
        [
             {
-              "id": 1,
-              "make": "08/01/2019",
-              "model": "Model 3",
-              "price": 35000,
-              "status": "processed"
+                "paymentType": "NOT IMPLEMENTED",
+                "status": "NOT IMPLEMENTED",
+                "entity": 3000,
+                "bankGroup": "WF",
+                "bankCode": "101019",
+                "bankAccountName": "Wells Fargo Deposit Account",
+                "bankAccountCurrency": "USD",
+                "statementDate": "2019-08-01T00:00:00",
+                "voucher": "BSTU000669427",
+                "amount": 39206.0000,
+                "description": "IA000015703443 USTRD: ACH UID             O00000091003939615177 USTRD: DESCRIPTIVE TEXT    WELLS FARGO AUTO PURCHASE 080119 000000143173920 TESLA EDEN PRAIRE USTRD: RUNNING BALANCE     0000028 +000001645879173 USTRD: DESCRIPTIVE TEXT    COMPANY NAME:  WELLS FARGO AUTO                   CONTRACT P USTRD: DESCRIPTIVE TEXT    RECIPIENT ID:  000000143173920 USTRD: DESCRIPTIVE TEXT    RECIPIENT NAME:TESLA EDEN PRAIRE USTRD: DESCRIPTIVE TEXT    COMPANY ID:    9300291646 USTRD: DESCRIPTIVE TEXT    DISCRETIONARY DATA: USTRD: DESCRIPTIVE TEXT    TRANSACTION CODE: 22",
+                "bankTransferNumber": "IA000015703443",
+                "providerDepositBatchId": "000000143173920",
+                "bankCorrelationId": "BA_WWE8OXTHPUQQAHTYEVVAWQ-1566949147752",
+                "orderNumber": null,
+                "vin": null,
+                "invoiceNumber": null
             },
             {
-              "id": 2,
-              "make": "08/01/2019",
-              "model": "Model y",
-              "price": 32000,
-              "status": "partially processed"
-            },
-            {
-              "id": 3,
-              "make": "08/01/2019",
-              "model": "Model x",
-              "price": 32000,
-              "status": "Failed"
+                "paymentType": "NOT IMPLEMENTED",
+                "status": "NOT IMPLEMENTED",
+                "entity": 3000,
+                "bankGroup": "WF",
+                "bankCode": "101019",
+                "bankAccountName": "Wells Fargo Deposit Account",
+                "bankAccountCurrency": "USD",
+                "statementDate": "2019-08-01T00:00:00",
+                "voucher": "BSTU000669426",
+                "amount": 39690.0000,
+                "description": "IA000015703441 USTRD: ACH UID             O00000091003939615176 USTRD: DESCRIPTIVE TEXT    WELLS FARGO AUTO PURCHASE 080119 000000143284680 TESLA ST LOUIS USTRD: RUNNING BALANCE     0000027 +000001641958573 USTRD: DESCRIPTIVE TEXT    COMPANY NAME:  WELLS FARGO AUTO                   CONTRACT P USTRD: DESCRIPTIVE TEXT    RECIPIENT ID:  000000143284680 USTRD: DESCRIPTIVE TEXT    RECIPIENT NAME:TESLA ST LOUIS USTRD: DESCRIPTIVE TEXT    COMPANY ID:    9300291646 USTRD: DESCRIPTIVE TEXT    DISCRETIONARY DATA: USTRD: DESCRIPTIVE TEXT    TRANSACTION CODE: 22",
+                "bankTransferNumber": "IA000015703441",
+                "providerDepositBatchId": "000000143284680",
+                "bankCorrelationId": "BA_WWE8OXTHPUQQAHTYEVVAWQ-1566949147752",
+                "orderNumber": null,
+                "vin": null,
+                "invoiceNumber": null
             }
          ]
 
@@ -98,24 +115,31 @@ Polls is a simple API allowing consumers to view polls and vote in them.
 
        [
             {
-              "id": 1,
-              "make": "08/01/2019",
-              "model": "Model 3",
+              "id": "PET0612378",
+              "date": "08/01/2019",
+              "model": "Model 5",
               "price": 35000,
-              "status": "processed"
+              "status": "processed",
+              "amount": 65500,
+              "currency": "USD"
             },
             {
-              "id": 2,
-              "make": "08/01/2019",
+              "id": "PET0612379",
+              "date": "08/01/2019",
               "model": "Model y",
               "price": 32000,
-              "status": "partially processed"
+              "status": "partially processed",
+              "amount": 65500,
+               "currency": "USD"
+
             },
             {
-              "id": 3,
-              "make": "08/01/2019",
+              "id": "PET0612399",
+              "date": "08/01/2019",
               "model": "Model x",
               "price": 32000,
-              "status": "Failed"
+              "status": "Failed",
+              "amount": 65500,
+              "currency": "USD"
             }
          ]
