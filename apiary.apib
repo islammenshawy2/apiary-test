@@ -6,36 +6,8 @@ HOST: http://polls.apiblueprint.org/
 Polls is a simple API allowing consumers to view polls and vote in them.
 
 ## Questions Collection [/search]
-
-
-## Search guides [/guide/{customerid}{?locationlt,locationlg,duration}]
-
-+ Parameters
-    + customerid - A path variable that is required for a valid URL
-    + locationlt  - A query variable
-    + locationlg - Another query variable
-    + duration - Another query variable
-
-### Get Available Guides [GET]
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "firstName": "Akram",
-                "Lastname": "Melice",
-                "rating": -5,
-                "profileimg":"https://hostedimage@noidea.com"
-            },
-            {
-                "firstName": "Islam",
-                "Lastname": "Elmenshawy",
-                "rating": 100,
-                "profileimg":"https://hostedimage@noidea.com"
-            }
-        ]
         
-## Trip Cost Estimator [/estimate{?locationlt,locationlg,duration}]
+## Statements Portal [/estimate{?locationlt,locationlg,duration}]
 
 + Parameters
     + customerid - A path variable that is required for a valid URL
