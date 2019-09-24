@@ -1,127 +1,345 @@
 FORMAT: 1A
 HOST: http://polls.apiblueprint.org/
 
-# Polls
+# Payment Portal Backend
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+Consists of API's to access bank statements using optional filters, and transactions using
+bank statement information.
 
-## Questions Collection [/search]
+## Bank Statements - reconsvcfeed [/api/bank/v1/bankstatements{?entities,startDate,endDate,bankCodes,currencies,startAt,dataSize,paymentTypes,statuses}]
+
++ Parameters
+    + entities (List<int>) - Pass in as a comma separated list
+    + startDate (DateTime) - Can't be later than current date or endDate. Required if endDate is given
+    + endDate (DateTime) - Required if startDate is given
+    + bankCodes (List<string>) - Pass in as a comma separated list
+    + currencies (List<string>) - Pass in as a comma separated list. Each value must be 3 alphabetic characters
+    + startAt (int) - Represents offset from first record returned. Must be a non-negative integer
+    + dataSize (int) - Represents max number of records to return. Must be a non-negative integer
+    + paymentTypes (List<string>) - Pass in as a comma separated list
+    + statuses (List<string>) - Pass in as a comma separated list
+
+    
+### Get Bank Statements [GET]
+
++ Request
+    + Headers
         
-## Statements Portal [/estimate{?locationlt,locationlg,duration}]
-
-+ Parameters
-    + customerid - A path variable that is required for a valid URL
-    + locationlt  - A query variable
-    + locationlg - Another query variable
-    + duration - Another query variable
-
-### Get Trip Estimate [GET]
-
+            Authorization: Bearer {token}
+            
 + Response 200 (application/json)
 
-        {
-            "CostAmount": 5.5,
-            "Currency" : "usd"
-        }
-
-## Statements [/reconsvcfeed/api/bank/v1/bankstatements{?locationlt,locationlg,duration}]
-
-+ Parameters
-    + locationlt  - A query variable
-    + locationlg - Another query variable
-    + duration - Another query variable
-
-### Get Statements [GET]
-
-+ Response 200 (application/json)
-
-       [
+        [
             {
                 "paymentType": "NOT IMPLEMENTED",
                 "status": "NOT IMPLEMENTED",
-                "entity": 3000,
-                "bankGroup": "WF",
-                "bankCode": "101019",
-                "bankAccountName": "Wells Fargo Deposit Account",
+                "entity": 1111,
+                "bankGroup": "WellsFargo",
+                "bankCode": "1111",
+                "bankAccountName": "Tesla Motors Limited- USD",
                 "bankAccountCurrency": "USD",
-                "statementDate": "2019-08-01T00:00:00",
-                "voucher": "BSTU000669427",
-                "amount": 39206.0000,
-                "description": "IA000015703443 USTRD: ACH UID             O00000091003939615177 USTRD: DESCRIPTIVE TEXT    WELLS FARGO AUTO PURCHASE 080119 000000143173920 TESLA EDEN PRAIRE USTRD: RUNNING BALANCE     0000028 +000001645879173 USTRD: DESCRIPTIVE TEXT    COMPANY NAME:  WELLS FARGO AUTO                   CONTRACT P USTRD: DESCRIPTIVE TEXT    RECIPIENT ID:  000000143173920 USTRD: DESCRIPTIVE TEXT    RECIPIENT NAME:TESLA EDEN PRAIRE USTRD: DESCRIPTIVE TEXT    COMPANY ID:    9300291646 USTRD: DESCRIPTIVE TEXT    DISCRETIONARY DATA: USTRD: DESCRIPTIVE TEXT    TRANSACTION CODE: 22",
-                "bankTransferNumber": "IA000015703443",
-                "providerDepositBatchId": "000000143173920",
-                "bankCorrelationId": "BA_WWE8OXTHPUQQAHTYEVVAWQ-1566949147752",
+                "statementDate": "2018-06-08T00:00:00",
+                "voucher": "xxxxx",
+                "amount": 1111.0000,
+                "description": "MOCK DESCRIPTION",
+                "bankTransferNumber": "xxxxxx",
+                "providerDepositBatchId": "xxxxx",
+                "bankCorrelationId": "BA_Ixxxx",
                 "orderNumber": null,
                 "vin": null,
-                "invoiceNumber": null
+                "invoiceNumber": null,
+                "wireSeqNumber": null
             },
             {
                 "paymentType": "NOT IMPLEMENTED",
                 "status": "NOT IMPLEMENTED",
-                "entity": 3000,
-                "bankGroup": "WF",
-                "bankCode": "101019",
-                "bankAccountName": "Wells Fargo Deposit Account",
+                "entity": 1111,
+                "bankGroup": "WellsFargo",
+                "bankCode": "1111",
+                "bankAccountName": "Tesla Motors Limited- USD",
                 "bankAccountCurrency": "USD",
-                "statementDate": "2019-08-01T00:00:00",
-                "voucher": "BSTU000669426",
-                "amount": 39690.0000,
-                "description": "IA000015703441 USTRD: ACH UID             O00000091003939615176 USTRD: DESCRIPTIVE TEXT    WELLS FARGO AUTO PURCHASE 080119 000000143284680 TESLA ST LOUIS USTRD: RUNNING BALANCE     0000027 +000001641958573 USTRD: DESCRIPTIVE TEXT    COMPANY NAME:  WELLS FARGO AUTO                   CONTRACT P USTRD: DESCRIPTIVE TEXT    RECIPIENT ID:  000000143284680 USTRD: DESCRIPTIVE TEXT    RECIPIENT NAME:TESLA ST LOUIS USTRD: DESCRIPTIVE TEXT    COMPANY ID:    9300291646 USTRD: DESCRIPTIVE TEXT    DISCRETIONARY DATA: USTRD: DESCRIPTIVE TEXT    TRANSACTION CODE: 22",
-                "bankTransferNumber": "IA000015703441",
-                "providerDepositBatchId": "000000143284680",
-                "bankCorrelationId": "BA_WWE8OXTHPUQQAHTYEVVAWQ-1566949147752",
+                "statementDate": "2018-06-08T00:00:00",
+                "voucher": "xxxxx",
+                "amount": 9999.0000,
+                "description": "MOCK DESCRIPTION",
+                "bankTransferNumber": "xxxxxx",
+                "providerDepositBatchId": "xxxxx",
+                "bankCorrelationId": "BA_Ixxxx",
                 "orderNumber": null,
                 "vin": null,
-                "invoiceNumber": null
+                "invoiceNumber": null,
+                "wireSeqNumber": null
             }
-         ]
+        ]
 
-### Transactions [/transactions{?statementId}]
+## Check Transactions - reconsvccheck [/reconsvccheck/api/v1/transactions{?providerDepositBatchId,amount}]
 
 + Parameters
-    + statementId  - A query variable for statement Id
+    + providerDepositBatchId (string) - From bank statement
+    + amount (decimal) - From bank statement
+    
+### Get Transactions [GET]
 
-### Get Statement Transactions [GET]
-
++ Request
+    + Headers
+        
+            Authorization: Bearer {token}
+            
 + Response 200 (application/json)
 
-       [
+        [
             {
-                "paymentType": "NOT IMPLEMENTED",
-                "status": "NOT IMPLEMENTED",
-                "entity": 3000,
-                "bankGroup": "WF",
-                "bankCode": "101019",
-                "bankAccountName": "Wells Fargo Deposit Account",
-                "bankAccountCurrency": "USD",
-                "statementDate": "2019-08-01T00:00:00",
-                "voucher": "BSTU000669427",
-                "amount": 39206.0000,
-                "description": "IA000015703443 USTRD: ACH UID             O00000091003939615177 USTRD: DESCRIPTIVE TEXT    WELLS FARGO AUTO PURCHASE 080119 000000143173920 TESLA EDEN PRAIRE USTRD: RUNNING BALANCE     0000028 +000001645879173 USTRD: DESCRIPTIVE TEXT    COMPANY NAME:  WELLS FARGO AUTO                   CONTRACT P USTRD: DESCRIPTIVE TEXT    RECIPIENT ID:  000000143173920 USTRD: DESCRIPTIVE TEXT    RECIPIENT NAME:TESLA EDEN PRAIRE USTRD: DESCRIPTIVE TEXT    COMPANY ID:    9300291646 USTRD: DESCRIPTIVE TEXT    DISCRETIONARY DATA: USTRD: DESCRIPTIVE TEXT    TRANSACTION CODE: 22",
-                "bankTransferNumber": "IA000015703443",
-                "providerDepositBatchId": "000000143173920",
-                "bankCorrelationId": "BA_WWE8OXTHPUQQAHTYEVVAWQ-1566949147752",
+                "productType": "[{\"ProductLine\":\"Vehicles\",\"ProductType\":\"Model 3\"}]",
+                "erpCustomerId": 1111,
+                "bankName": "",
+                "orderSystemSyncStatus": "ORDER_SYSTEM_POSTING_FAILED",
+                "accountingSystemSyncStatus": "NOT_PUBLISHED",
+                "entity": 1111,
+                "productDetails": null,
+                "vin": "xxxxx",
+                "correlationId": "xxxxx-xxxxx",
+                "checkRefId": "CHECK-xxxx-xxxx-xxxx-xxxx-xxxxx",
+                "processorName": "MAVRO",
+                "orderNumber": "RNxxxx",
+                "batchNumber": "111",
+                "transactionNumber": "1",
+                "receivedDate": "2019-03-08T00:00:00",
+                "checkNumber": 111,
+                "amount": 1111.00,
+                "currencyCode": "USD",
+                "frontImagePath": "C:\\DataTest\\Customer\\Settlement\\xxxxx\\xxxxx.TIF",
+                "backImagePath": "C:\\DataTest\\Customer\\Settlement\\xxxxx\\xxxxx.TIF",
+                "providerDepositBatchId": "11111",
+                "status": "READY_FOR_NEXT_RUN",
+                "paymentMethod": "RECONCHECK",
+                "type": "PERSONAL",
+                "transactionType": "PAYMENT",
+                "keyingOperator": null,
+                "scanOperator": null,
+                "locationId": null,
+                "createdBy": "RECONSVCBANKFEEDREPOSITORY.SaveCheckDetails",
+                "createDateTime": "2019-04-02T23:52:40",
+                "lastUpdatedBy": "CHECKREPOSITORY.UPDATEPUBLISHSTATUS",
+                "lastUpdateDateTime": "2019-04-02T23:52:40"
+            }
+        ]
+
+## Lending Partner Transactions - reconsvclendingpartners [/reconsvclendingpartners/api/v1/transactions{?providerDepositBatchId,amount,currency}]
+
++ Parameters
+    + providerDepositBatchId (string) - From bank statement
+    + amount (decimal) - From bank statement
+    + currency (string) - From bank statement. Must be 3 alphabetic characters
+    
+### Get Transactions [GET]
+
++ Request
+    + Headers
+        
+            Authorization: Bearer {token}
+            
++ Response 200 (application/json)
+
+        [
+            {
+                "erpCustomerId": 1111,
+                "productType": "[{\"ProductLine\":\"Vehicles\",\"ProductType\":\"Model 3\"}]",
+                "productDetails": null,
                 "orderNumber": null,
-                "vin": null,
-                "invoiceNumber": null
+                "orderSystemSyncStatus": null,
+                "accountingSystemSyncStatus": null,
+                "accountJournal": null,
+                "accountVoucher": "xxxxx",
+                "bankTransferNumber": "xxxxxx",
+                "entity": 1111,
+                "settlementDate": "2018-06-08T00:00:00",
+                "bankName": "WellsFargo-BankCode-106142",
+                "partnerPaymentId": 1,
+                "correlationId": "xxxx-xxxxx",
+                "partnerName": "WellsFargo",
+                "firstName": "John",
+                "lastName": "Doe",
+                "dateFunded": "2018-01-17T00:08:00",
+                "recipientId": "1111",
+                "merchantRefNumber": "xxxxx",
+                "amountFinanced": 1111.0000,
+                "totalProceeds": 1111.0000,
+                "totalDeposits": 1111.0000,
+                "totalFees": 0.0000,
+                "buydownAmount": 0.0000,
+                "depositCurrency": "USD",
+                "paymentType": "DELIVERY",
+                "paymentSubType": "FINANCE",
+                "paymentMethod": "ACH",
+                "sourceSystemType": "LENDINGPARTNER",
+                "type": "Settled",
+                "transactionOrigin": "eCom",
+                "reasonName": "Car",
+                "status": "PENDING_GL_POSTING",
+                "createDateTime": "2018-08-21T22:02:30",
+                "createdBy": "LENDINGPARTNERREPOSITORY.SAVERECONPAYMENT",
+                "lastUpdateDateTime": "2018-09-04T22:40:59",
+                "lastUpdatedBy": "LENDINGPARTNERREPOSITORY.UPDATERECONPAYMENT",
+                "attributes": null,
+                "partnerPaymentRefId": "xxxxx-xxxx-xxxx-xxxx-xxxxx"
+            }
+        ]
+        
+## Processor Transactions - reconsvcsettlement [/api/v1/transactions{?providerDepositBatchId,amount}]
+
++ Parameters
+    + providerDepositBatchId (string) - From bank statement
+    + amount (decimal) - From bank statement
+
+### Get Transactions [GET]
+
++ Request
+    + Headers
+        
+            Authorization: Bearer {token}
+            
++ Response 200 (application/json)
+
+        [
+            {
+                "erpCustomerId": "111111",
+                "status": "READY_FOR_NEXT_RUN",
+                "productType": "[{\"ProductLine\":\"Vehicles\",\"ProductType\":\"Model S-Used\"}]",
+                "vin": "xxxxxx",
+                "postingProfile": null,
+                "invoiceNumber": null,
+                "paymentId": 1111,
+                "correlationId": "xxxxx-xxxxx",
+                "corporateId": "Tesla",
+                "orderNumber": "RNxxxxx",
+                "settlementDate": "0001-01-01T00:00:00",
+                "providerAccount": "NULL",
+                "merchantAccount": "xxxx",
+                "providerRefNumber": "RNxxxxx-xxxxx",
+                "merchantRefNumber": "xxxxxx",
+                "paymentMethod": "Checking",
+                "type": "Settled",
+                "modificationRefNumber": "xxxxx",
+                "grossCurrency": "USD",
+                "grossCredit": 50.00,
+                "grossDebit": 0.0000,
+                "netCurrency": "USD",
+                "netDebit": 0.0000,
+                "netCredit": 50.00,
+                "exchangeRate": 0.0000,
+                "commissionFee": 0.0000,
+                "markupFee": 0.0000,
+                "schemeFee": 0.0000,
+                "interchangeFee": 0.0000,
+                "transactionFee": 0.0000,
+                "providerDepositBatchId": "11111",
+                "terminalId": "NULL",
+                "transactionOrigin": "eCom",
+                "reasonName": "Car",
+                "providerName": "CYBERSOURCE",
+                "paymentCreationDate": "0001-01-01T00:00:00",
+                "timeZone": "PST",
+                "paymentMethodDetails": "Checking",
+                "depositNote": "NULL",
+                "depositAmount": 1000.00,
+                "sourceSystemType": null,
+                "attributes": "NULL",
+                "providerBatchType": "MERCHANTPAYOUT",
+                "paymentRefId": "xxxx-xxxx-xxx-xxx-xxx-xxxx",
+                "waitForBankFile": false,
+                "batchSize": 0,
+                "entity": 1111
             },
             {
-                "paymentType": "NOT IMPLEMENTED",
-                "status": "NOT IMPLEMENTED",
-                "entity": 3000,
-                "bankGroup": "WF",
-                "bankCode": "101019",
-                "bankAccountName": "Wells Fargo Deposit Account",
-                "bankAccountCurrency": "USD",
-                "statementDate": "2019-08-01T00:00:00",
-                "voucher": "BSTU000669426",
-                "amount": 39690.0000,
-                "description": "IA000015703441 USTRD: ACH UID             O00000091003939615176 USTRD: DESCRIPTIVE TEXT    WELLS FARGO AUTO PURCHASE 080119 000000143284680 TESLA ST LOUIS USTRD: RUNNING BALANCE     0000027 +000001641958573 USTRD: DESCRIPTIVE TEXT    COMPANY NAME:  WELLS FARGO AUTO                   CONTRACT P USTRD: DESCRIPTIVE TEXT    RECIPIENT ID:  000000143284680 USTRD: DESCRIPTIVE TEXT    RECIPIENT NAME:TESLA ST LOUIS USTRD: DESCRIPTIVE TEXT    COMPANY ID:    9300291646 USTRD: DESCRIPTIVE TEXT    DISCRETIONARY DATA: USTRD: DESCRIPTIVE TEXT    TRANSACTION CODE: 22",
-                "bankTransferNumber": "IA000015703441",
-                "providerDepositBatchId": "000000143284680",
-                "bankCorrelationId": "BA_WWE8OXTHPUQQAHTYEVVAWQ-1566949147752",
-                "orderNumber": null,
-                "vin": null,
-                "invoiceNumber": null
+                "erpCustomerId": "22222",
+                "status": "READY_FOR_NEXT_RUN",
+                "productType": "[{\"ProductLine\":\"Vehicles\",\"ProductType\":\"Model S\"}]",
+                "vin": "xxxxxx",
+                "postingProfile": null,
+                "invoiceNumber": null,
+                "paymentId": 2222,
+                "correlationId": "xxxxx-xxxxx",
+                "corporateId": "Tesla",
+                "orderNumber": "RNxxxxx",
+                "settlementDate": "0001-01-01T00:00:00",
+                "providerAccount": "NULL",
+                "merchantAccount": "xxxx",
+                "providerRefNumber": "RNxxxxx-xxxxx",
+                "merchantRefNumber": "xxxxxx",
+                "paymentMethod": "Checking",
+                "type": "Settled",
+                "modificationRefNumber": "xxxxx",
+                "grossCurrency": "USD",
+                "grossCredit": 50.00,
+                "grossDebit": 0.0000,
+                "netCurrency": "USD",
+                "netDebit": 0.0000,
+                "netCredit": 50.00,
+                "exchangeRate": 0.0000,
+                "commissionFee": 0.0000,
+                "markupFee": 0.0000,
+                "schemeFee": 0.0000,
+                "interchangeFee": 0.0000,
+                "transactionFee": 0.0000,
+                "providerDepositBatchId": "2222",
+                "terminalId": "NULL",
+                "transactionOrigin": "eCom",
+                "reasonName": "Car",
+                "providerName": "CYBERSOURCE",
+                "paymentCreationDate": "0001-01-01T00:00:00",
+                "timeZone": "PST",
+                "paymentMethodDetails": "Checking",
+                "depositNote": "NULL",
+                "depositAmount": 1000.00,
+                "sourceSystemType": null,
+                "attributes": "NULL",
+                "providerBatchType": "MERCHANTPAYOUT",
+                "paymentRefId": "xxxx-xxxx-xxx-xxx-xxx-xxxx",
+                "waitForBankFile": false,
+                "batchSize": 0,
+                "entity": 1111
             }
-         ]
+        ]
+        
+## Wire Transactions - reconsvcfeed [/api/bank/v1/transactions{?wireSeqNumber}]
+
++ Parameters
+    + wireSeqNumber (string) - From bank statement
+
+### Get Transactions [GET]
+
++ Request
+    + Headers
+        
+            Authorization: Bearer {token}
+            
++ Response 200 (application/json)
+
+        [
+            {
+                "productType": null,
+                "erpCustomerId": 0,
+                "orderSystemSyncStatus": "NOT_PUBLISHED",
+                "accountingSystemSyncStatus": "NOT_PUBLISHED",
+                "entity": 1111,
+                "exceptionDetails": "Order Number not found | Reservation status is Cancelled | Reservation status in Payment Pending",
+                "productDetails": null,
+                "correlationId": "BA_xxxxx-xxxxx",
+                "bankFeedRefId": "xxxxxx-xxxxx",
+                "payerName": "Tesla Motors xxxxx APS - DKK",
+                "amount": 2880.50,
+                "currencyCode": "DKK",
+                "transactionId": "xxxxx",
+                "bankName": "Citi",
+                "transactionReferenceNumber": "xxxxx",
+                "remitInformation": "NONREF USTRD: Invoice:xxxxxx ADDTLNTRYINF: /PT/DE/EI/B/O CRASHPOINT A/S 0019/     E2EID/NOTPROVIDED INVOICE:xxxxxx",
+                "paymentReceivedDate": "2019-04-10T00:00:00",
+                "status": "ORDER_SYSTEM_EXCEPTION",
+                "paymentType": null,
+                "paymentSubType": null,
+                "paymentMethod": "RECONWIRE",
+                "orderNumber": "",
+                "vin": "",
+                "invoiceNumber": "xxxxx"
+            }
+        ]
