@@ -8,7 +8,7 @@ bank statement information.
 
 
 
-## Bank Statements - reconsvcfeed [/reconsvcfeed/api/bank/v1/bankstatements{?entities,startDate,endDate,bankCodes,currencies,startAt,dataSize,paymentTypes,statuses}]
+## Bank Statements - reconsvcfeed [/reconsvcfeed/api/bank/v1/bankstatements{?entities,startDate,endDate,bankCodes,currencies,paymentTypes,paymentSources,statuses,automationType,startAt,dataSize}]
 
 + Parameters
     + entities (List<int>) - Pass in as a comma separated list
@@ -16,10 +16,12 @@ bank statement information.
     + endDate (DateTime) - Required if startDate is given
     + bankCodes (List<string>) - Pass in as a comma separated list
     + currencies (List<string>) - Pass in as a comma separated list. Each value must be 3 alphabetic characters
+    + paymentTypes (List<string>) - Pass in as a comma separated list
+    + paymentSources (List<string>) - Pass in as a comma separated list
+    + statuses (List<string>) - Pass in as a comma separated list
+    + automationType (string) - 
     + startAt (int) - Represents offset from first record returned. Must be a non-negative integer
     + dataSize (int) - Represents max number of records to return. Must be a non-negative integer
-    + paymentTypes (List<string>) - Pass in as a comma separated list
-    + statuses (List<string>) - Pass in as a comma separated list
 
     
 ### Get Bank Statements [GET]
@@ -33,8 +35,10 @@ bank statement information.
 
         [
             {
-                "paymentType": "NOT IMPLEMENTED",
-                "status": "NOT IMPLEMENTED",
+                "paymentType": "UNDETERMINED",
+                "paymentSource": "UNDETERMINED",
+                "automationType": "UNDETERMINED",
+                "status": "NOT SYNCED",
                 "entity": 1111,
                 "bankGroup": "WellsFargo",
                 "bankCode": "1111",
@@ -46,15 +50,17 @@ bank statement information.
                 "description": "MOCK DESCRIPTION",
                 "bankTransferNumber": "xxxxxx",
                 "providerDepositBatchId": "xxxxx",
-                "bankCorrelationId": "BA_Ixxxx",
+                "bankCorrelationId": "BA_I14",
                 "orderNumber": null,
                 "vin": null,
                 "invoiceNumber": null,
                 "wireSeqNumber": null
             },
             {
-                "paymentType": "NOT IMPLEMENTED",
-                "status": "NOT IMPLEMENTED",
+                "paymentType": "UNDETERMINED",
+                "paymentSource": "UNDETERMINED",
+                "automationType": "UNDETERMINED",
+                "status": "WAITING FOR SETTLEMENT FILE",
                 "entity": 1111,
                 "bankGroup": "WellsFargo",
                 "bankCode": "1111",
@@ -66,14 +72,16 @@ bank statement information.
                 "description": "MOCK DESCRIPTION",
                 "bankTransferNumber": "xxxxxx",
                 "providerDepositBatchId": "xxxxx",
-                "bankCorrelationId": "BA_Ixxxx",
+                "bankCorrelationId": "BA_I12",
                 "orderNumber": null,
                 "vin": null,
                 "invoiceNumber": null,
                 "wireSeqNumber": null
             },
             {
-                "paymentType": "NOT IMPLEMENTED",
+                "paymentType": "UNDETERMINED",
+                "paymentSource": "UNDETERMINED",
+                "automationType": "UNDETERMINED",
                 "status": "PROCESSED",
                 "entity": 1111,
                 "bankGroup": "WellsFargo",
@@ -86,7 +94,7 @@ bank statement information.
                 "description": "MOCK DESCRIPTION",
                 "bankTransferNumber": "xxxxxx",
                 "providerDepositBatchId": "xxxxx",
-                "bankCorrelationId": "BA_Ixxxx",
+                "bankCorrelationId": "BA_I13",
                 "orderNumber": null,
                 "vin": null,
                 "invoiceNumber": null,
@@ -97,8 +105,8 @@ bank statement information.
 ## Check Transactions - reconsvccheck [/reconsvccheck/api/v1/transactions{?providerDepositBatchId,amount}]
 
 + Parameters
-    + providerDepositBatchId (string) - From bank statement
-    + amount (decimal) - From bank statement
+    + providerDepositBatchId (string) - From bank statement. REQUIRED
+    + amount (decimal) - From bank statement. REQUIRED
     
 ### Get Transactions [GET]
 
@@ -146,12 +154,13 @@ bank statement information.
             }
         ]
 
-## Lending Partner Transactions - reconsvclendingpartners [/reconsvclendingpartners/api/v1/transactions{?providerDepositBatchId,amount,currency}]
+## Lending Partner Transactions - reconsvclendingpartners [/reconsvclendingpartners/api/v1/transactions{?providerDepositBatchId,amount,currency,bankTransferNumber}]
 
 + Parameters
-    + providerDepositBatchId (string) - From bank statement
-    + amount (decimal) - From bank statement
-    + currency (string) - From bank statement. Must be 3 alphabetic characters
+    + providerDepositBatchId (string) - From bank statement. REQUIRED
+    + amount (decimal) - From bank statement. REQUIRED
+    + currency (string) - From bank statement. Must be 3 alphabetic characters. REQUIRED
+    + bankTransferNumber (string) - From bank statement. OPTIONAL
     
 ### Get Transactions [GET]
 
@@ -210,8 +219,8 @@ bank statement information.
 ## Processor Transactions - reconsvcsettlement [/api/v1/transactions{?providerDepositBatchId,amount}]
 
 + Parameters
-    + providerDepositBatchId (string) - From bank statement
-    + amount (decimal) - From bank statement
+    + providerDepositBatchId (string) - From bank statement. REQUIRED
+    + amount (decimal) - From bank statement. REQUIRED
 
 ### Get Transactions [GET]
 
@@ -323,10 +332,13 @@ bank statement information.
             }
         ]
         
-## Wire Transactions - reconsvcfeed [/api/bank/v1/transactions{?wireSeqNumber}]
+## Wire Transactions - reconsvcfeed [/api/bank/v1/transactions{?wireSeqNumber,orderNumber,vin,invoiceNumber}]
 
 + Parameters
-    + wireSeqNumber (string) - From bank statement
+    + wireSeqNumber (string) - From bank statement. REQUIRED if other fields aren't given
+    + orderNumber (string) - From bank statement. REQUIRED if other fields aren't given
+    + vin (string) - From bank statement. REQUIRED if other fields aren't given
+    + invoiceNumber (string) - From bank statement. REQUIRED if other fields aren't given
 
 ### Get Transactions [GET]
 
