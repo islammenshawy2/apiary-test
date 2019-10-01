@@ -37,7 +37,6 @@ bank statement information.
             {
                 "paymentType": "UNDETERMINED",
                 "paymentSource": "UNDETERMINED",
-                "automationType": "UNDETERMINED",
                 "status": "NOT SYNCED",
                 "entity": 1111,
                 "bankGroup": "WellsFargo",
@@ -54,12 +53,13 @@ bank statement information.
                 "orderNumber": null,
                 "vin": null,
                 "invoiceNumber": null,
-                "wireSeqNumber": null
+                "wireSeqNumber": null,
+                "transactionId": 1,
+                "automationType": "UNDETERMINED"
             },
             {
                 "paymentType": "UNDETERMINED",
                 "paymentSource": "UNDETERMINED",
-                "automationType": "UNDETERMINED",
                 "status": "WAITING FOR SETTLEMENT FILE",
                 "entity": 1111,
                 "bankGroup": "WellsFargo",
@@ -76,12 +76,13 @@ bank statement information.
                 "orderNumber": null,
                 "vin": null,
                 "invoiceNumber": null,
-                "wireSeqNumber": null
+                "wireSeqNumber": null,
+                "transactionId": 2,
+                "automationType": "UNDETERMINED"
             },
             {
                 "paymentType": "UNDETERMINED",
                 "paymentSource": "UNDETERMINED",
-                "automationType": "UNDETERMINED",
                 "status": "PROCESSED",
                 "entity": 1111,
                 "bankGroup": "WellsFargo",
@@ -98,7 +99,9 @@ bank statement information.
                 "orderNumber": null,
                 "vin": null,
                 "invoiceNumber": null,
-                "wireSeqNumber": null
+                "wireSeqNumber": null,
+                "transactionId": 3,
+                "automationType": "UNDETERMINED"
             }
         ]
 
@@ -150,7 +153,8 @@ bank statement information.
                 "createdBy": "RECONSVCBANKFEEDREPOSITORY.SaveCheckDetails",
                 "createDateTime": "2019-04-02T23:52:40",
                 "lastUpdatedBy": "CHECKREPOSITORY.UPDATEPUBLISHSTATUS",
-                "lastUpdateDateTime": "2019-04-02T23:52:40"
+                "lastUpdateDateTime": "2019-04-02T23:52:40",
+                "checkId": 3
             }
         ]
 
@@ -374,6 +378,7 @@ bank statement information.
                 "paymentMethod": "RECONWIRE",
                 "orderNumber": "",
                 "vin": "",
-                "invoiceNumber": "xxxxx"
+                "invoiceNumber": "xxxxx",
+                "bankFeedId": 55
             }
         ]
